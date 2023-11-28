@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.24)
+
+file(
+GLOB_RECURSE HEADERS
+RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+"include/*.h"
+)
+
+project(macros CXX)
+
+add_library(${PROJECT_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/${HEADERS}")
+
+target_include_directories(${PROJECT_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/${HEADERS}")
+
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER ${HEADERS})
+
+install(TARGETS ${PROJECT_NAME}
+		LIBRARY DESTINATION lib
+		PUBLIC_HEADER DESTINATION include
+)
